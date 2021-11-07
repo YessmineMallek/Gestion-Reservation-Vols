@@ -27,6 +27,7 @@ public class Test {
 		System.out.println(rescontroller.getAll());
 
 	}*/
+		System.out.println("hello");
 
 }
 }
