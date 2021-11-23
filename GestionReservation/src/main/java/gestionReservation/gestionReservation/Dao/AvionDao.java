@@ -12,7 +12,7 @@ import gestionReservation.gestionReservation.entités.Aeroport;
 import gestionReservation.gestionReservation.entités.Avion;
 
 public class AvionDao {
-	//findAllAvion()
+	//findAllAvionByImmat()
 		public Avion findAllAvionByImmat(String immat)
 			{
 			Avion av=null;

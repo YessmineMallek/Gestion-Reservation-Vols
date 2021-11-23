@@ -55,7 +55,39 @@ public class CompteDao {
 		
 		return lesComptes;
 	}
-	
+	//findAllComptesByEmail
+	public ArrayList<Compte> findAllCompteByEmail(String emailToSearch)
+	{
+		System.out.println(emailToSearch);
+		ArrayList<Compte>  lesComptes=new ArrayList<Compte> ();
+		try 
+		{
+			Connection cnx=SConnection.getInstance();
+			if (cnx!=null)
+			{		String req="select email ,motDePasse ,nomUtilisateur,role from comptes where trim(email)=?";
+					PreparedStatement stm =cnx.prepareStatement(req);
+					stm.setString(1, emailToSearch);
+					ResultSet rs=stm.executeQuery();
+					Compte cpt=null;
+					while (rs.next())
+					{
+						String email=rs.getString("email");
+						String motDe=rs.getString("motDePasse");
+						String nomUtili=rs.getString("nomUtilisateur");
+						String role=rs.getString("role");
+						cpt=new Compte(email,nomUtili,role,motDe);
+						
+						lesComptes.add(cpt);
+					}
+			stm.close();
+			}
+		}catch (SQLException ex)
+		{
+			System.out.println(ex.getMessage());	
+		}
+		
+		return lesComptes;
+	}
 	//SaveComptes
 	public void saveCompte(Compte cpt)
 	{

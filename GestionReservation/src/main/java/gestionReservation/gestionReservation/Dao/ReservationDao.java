@@ -45,6 +45,44 @@ public class ReservationDao {
 		
 		return lesRes;
 	}
+	//findByNumero
+	public ArrayList<Reservation> findAllByNumero(String numero)
+	{
+		ArrayList<Reservation>  lesRes=new ArrayList<Reservation> ();
+		try 
+		{
+			Connection cnx=SConnection.getInstance();
+			System.out.println(cnx);
+			if (cnx!=null)
+			{		String req="select numero ,date ,client ,confirmee from reservation where numero=?";
+					PreparedStatement stm =cnx.prepareStatement(req);
+					stm.setString(1, numero);
+					
+					ResultSet rs=stm.executeQuery();
+					Reservation res=null;
+					while (rs.next())
+					{
+						String num=rs.getString("numero");
+						LocalDate time=rs.getObject("date",LocalDate.class);
+						String client=rs.getString("client");
+						int conf=rs.getInt("confirmee");
+						res=new Reservation();
+						res.setNumero(num);
+						res.setDate(time);
+						res.setClient(client);
+						res.setConfirmee(conf);
+						lesRes.add(res);
+					}
+			stm.close();
+			}
+		}catch (SQLException ex)
+		{
+			System.out.println(ex.getMessage());
+			
+		}
+		
+		return lesRes;
+	}
 	
 	public void save (Reservation res) 
 	{

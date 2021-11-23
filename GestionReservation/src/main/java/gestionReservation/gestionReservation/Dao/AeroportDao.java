@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +40,35 @@ public class AeroportDao {
 			
 			return lesAeroports;
 		}
+		//findAll()
+				public List<Aeroport> findAllAeroportByName(String nomToSearch)
+				{
+					List<Aeroport>  lesAeroports=new ArrayList<Aeroport> ();
+					try 
+					{
+						Connection cnx=SConnection.getInstance();
+						if (cnx!=null)
+						{		String req="select nom from aeroport where nom=?";
+								PreparedStatement stm =cnx.prepareStatement(req);
+								stm.setString(1, nomToSearch);
+								
+								ResultSet rs=stm.executeQuery();
+								while (rs.next())
+								{
+									String nom=rs.getString("nom");
+									Aeroport a1=new Aeroport(nom);
+									lesAeroports.add(a1);
+								}
+						stm.close();
+						}
+					}catch (SQLException ex)
+					{
+						System.out.println("PB Find All aeroport()"+ex.getMessage());
+						
+					}
+					
+					return lesAeroports;
+				}
 		//saveAeroport
 	
 		public void saveAeroport (Aeroport aeroportToAdd) 

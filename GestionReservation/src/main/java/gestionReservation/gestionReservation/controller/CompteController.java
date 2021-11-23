@@ -8,13 +8,13 @@ import com.sun.research.ws.wadl.Application;
 
 import gestionReservation.gestionReservation.Dao.CompteDao;
 import gestionReservation.gestionReservation.entités.Compte;
-import jakarta.websocket.server.PathParam;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -30,6 +30,16 @@ public class CompteController {
 	public ArrayList<Compte> getAllComptes()
 	{
 		return this.cptDao.findAllComptes();
+	}
+	
+	@GET
+	@Path("{email}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Compte> getAllComptesByEmail(@PathParam("email")String email)
+	{
+		System.out.println("heeeey");
+		System.out.println(this.cptDao.findAllCompteByEmail(email)); 
+		return this.cptDao.findAllCompteByEmail(email);
 	}
 	
     @POST

@@ -29,6 +29,13 @@ public class AeroportController {
 	{
 		return this.aeropDb.findAllAeroport();
 	}
+	@GET
+	@Path("{nom}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Aeroport> getAllAeroportByName(@PathParam("nom") String nom)
+	{
+		return this.aeropDb.findAllAeroportByName(nom);
+	}
 	
 	@POST
 	@Path("ajouterAero")

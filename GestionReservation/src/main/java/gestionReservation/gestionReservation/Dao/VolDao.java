@@ -56,6 +56,49 @@ public class VolDao {
 		
 		return lesVols;
 	}
+	//findAllByCode
+	public ArrayList<Vol> findAllVolByCode(String codeSerarch)
+	{
+		ArrayList<Vol>  lesVols=new ArrayList<Vol> ();
+		try 
+		{
+			Connection cnx=SConnection.getInstance();
+			if (cnx!=null)
+			{		String req="select code,dateArrivee, dateDepart ,etat,aeroportDepart,aeroportArrive,avion_vol from vol where code=?";
+					PreparedStatement stm =cnx.prepareStatement(req);
+					stm.setString(1, codeSerarch);
+					ResultSet rs=stm.executeQuery();
+					while (rs.next())
+					{
+						int code=rs.getInt("code");
+						LocalDate dateArrivee=rs.getObject("dateArrivee",LocalDate.class);
+						LocalDate dateDepart=rs.getObject("dateDepart",LocalDate.class);
+						int conf=rs.getInt("etat");
+						String aeroDep=rs.getString("aeroportDepart");
+						String aeroArr=rs.getString("aeroportArrive");
+						String avionImmat=rs.getString("avion_vol");
+						
+						
+						
+						Aeroport adep=new Aeroport(aeroDep);
+						Aeroport aArr=new Aeroport(aeroArr);
+						Avion av=new AvionDao().findAllAvionByImmat(avionImmat);
+						
+						
+						Vol v1=new Vol(code,dateArrivee,dateDepart,conf,adep,aArr,av);
+						lesVols.add(v1);
+					}
+			stm.close();
+			}
+		}catch (SQLException ex)
+		{
+			System.out.println("PB Find All Vol()"+ex.getMessage());
+			
+		}
+		
+		return lesVols;
+	}
+	
 	//save
 	public void saveVol (Vol vol) 
 	{

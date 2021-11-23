@@ -28,6 +28,13 @@ public class VolController {
 	{
 		return this.volDb.findAllVol();
 	}
+	@GET
+	@Path("{code}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Vol> getAllVolsByCode(@PathParam("code")String code)
+	{
+		return this.volDb.findAllVolByCode(code);
+	}
 	
 	@POST
     @Path("addVol")

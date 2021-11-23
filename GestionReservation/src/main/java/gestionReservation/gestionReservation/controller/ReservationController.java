@@ -29,8 +29,15 @@ public class ReservationController {
     @Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Reservation> getAll()
 	{
-		System.out.println("hellllo");
     	return  this.resDao.findAll();
+	}
+
+    @GET
+    @Path("{numero}")
+    @Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Reservation> getAllByNumero(@PathParam("numero")String numero)
+	{
+    	return  this.resDao.findAllByNumero(numero);
 	}
     
     @POST
