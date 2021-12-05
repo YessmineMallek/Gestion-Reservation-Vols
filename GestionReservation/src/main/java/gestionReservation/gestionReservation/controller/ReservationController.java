@@ -2,6 +2,7 @@ package gestionReservation.gestionReservation.controller;
 
 import java.util.ArrayList;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.sun.research.ws.wadl.Application;
@@ -19,7 +20,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @Path("/reservations")
 public class ReservationController {
 	
